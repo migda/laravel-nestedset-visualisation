@@ -3,6 +3,7 @@
 namespace Migda\LaravelNestedsetVisualisation\Tests\Commands;
 
 use Exception;
+use Illuminate\Support\Facades\Artisan;
 use Migda\LaravelNestedsetVisualisation\Tests\Category;
 use Migda\LaravelNestedsetVisualisation\Tests\TestCase;
 
@@ -18,8 +19,9 @@ class VisualizeTest extends TestCase
     public function it_throws_exception_when_model_not_found()
     {
         $this->expectException(Exception::class);
-        $this->artisan('laravel-nestedset:visualize', [
+        Artisan::call('laravel-nestedset:visualize', [
             'model' => 'TEST',
+            '--no-interaction' => true,
         ]);
     }
 
@@ -49,6 +51,7 @@ class VisualizeTest extends TestCase
         $this->artisan('laravel-nestedset:visualize', [
             'model' => Category::class,
             'property' => 'name',
+            '--no-interaction' => true,
             '--output' => $outputImage,
         ]);
 
