@@ -1,36 +1,60 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Migda\LaravelNestedsetVisualisation\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Application;
+use Migda\LaravelNestedsetVisualisation\LaravelNestedsetVisualisationServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use VendorName\Skeleton\SkeletonServiceProvider;
 
+/**
+ * Class TestCase
+ * @package Migda\LaravelNestedsetVisualisation\Tests
+ */
 class TestCase extends Orchestra
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'VendorName\\Skeleton\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Migda\\LaravelNestedsetVisualisation\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
+
+        // Run migration for testing
+        $this->loadMigrationsFrom([
+            '--path' => realpath(__DIR__ . '/database/migrations'),
+        ]);
+        $this->artisan('migrate');
     }
 
+    /**
+     * @param Application $app
+     *
+     * @return array
+     */
     protected function getPackageProviders($app)
     {
         return [
-            SkeletonServiceProvider::class,
+            LaravelNestedsetVisualisationServiceProvider::class,
         ];
     }
 
+    /**
+     * @param Application $app
+     *
+     * @return array
+     */
     public function getEnvironmentSetUp($app)
     {
-        config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_skeleton_table.php.stub';
-        $migration->up();
-        */
+        config()->set('database.default', 'sqlite');
+        config()->set('database.connections.sqlite', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
     }
 }
