@@ -4,8 +4,8 @@ namespace Migda\LaravelNestedsetVisualisation\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Application;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Migda\LaravelNestedsetVisualisation\LaravelNestedsetVisualisationServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 /**
  * Class TestCase
@@ -21,7 +21,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn(string $modelName) => 'Migda\\LaravelNestedsetVisualisation\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Migda\\LaravelNestedsetVisualisation\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
@@ -54,6 +54,5 @@ class TestCase extends Orchestra
         // Migrations
         include_once __DIR__ . '/database/migrations/create_categories_table.php';
         (new \CreateCategoriesTable())->up();
-
     }
 }
