@@ -48,7 +48,7 @@ class VisualizeTest extends TestCase
         // Act
         $outputImage = 'graph_test.jpg';
 
-        $this->artisan('laravel-nestedset:visualize', [
+        Artisan::call('laravel-nestedset:visualize', [
             'model' => Category::class,
             'property' => 'name',
             '--no-interaction' => true,
