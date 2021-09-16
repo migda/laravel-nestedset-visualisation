@@ -62,8 +62,9 @@ Please review [our security policy](../../security/policy) on how to report secu
 - [Rafal Migda](https://github.com/migda)
 - [All Contributors](../../contributors)
 
-## Inspiration
+## Inspired by
 
+[Winzou State Machine service provider for Laravel](https://github.com/sebdesign/laravel-state-machine#visualize-command)
 
 ## License
 
