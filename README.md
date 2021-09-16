@@ -29,7 +29,7 @@ php artisan laravel-nestedset:visualize {model? : Nestedset model} {property? : 
 Example:
 
 ```bash
-php artisan laravel-nestedset:visualize \App\Models\Category name --output=categories_graph.jpg --format=jpg {--direction=TB} {--dot-path=/usr/local/bin/dot}
+php artisan laravel-nestedset:visualize "\App\Models\Category" name --output=categories_graph.jpg --format=jpg --direction=LR
 ```
 or just:
 
