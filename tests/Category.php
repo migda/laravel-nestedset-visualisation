@@ -12,8 +12,8 @@ use Kalnoy\Nestedset\NodeTrait;
  */
 class Category extends Model
 {
-
-    use SoftDeletes, NodeTrait;
+    use SoftDeletes;
+    use NodeTrait;
 
     /**
      * @var string[]

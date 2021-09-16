@@ -4,8 +4,8 @@ namespace Migda\LaravelNestedsetVisualisation\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Application;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Migda\LaravelNestedsetVisualisation\LaravelNestedsetVisualisationServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 /**
  * Class TestCase
@@ -21,12 +21,12 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn(string $modelName) => 'Migda\\LaravelNestedsetVisualisation\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Migda\\LaravelNestedsetVisualisation\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
 
         // Run migration for testing
         $this->loadMigrationsFrom([
-            '--path' => realpath(__DIR__ . '/database/migrations')
+            '--path' => realpath(__DIR__ . '/database/migrations'),
         ]);
         $this->artisan('migrate');
     }
@@ -56,6 +56,5 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
-
     }
 }
