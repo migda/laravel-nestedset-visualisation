@@ -50,19 +50,19 @@ class Visualize extends Command
     public function handle(): int
     {
         // Model
-        if (!$this->argument('model')) {
+        if (! $this->argument('model')) {
             $this->askForModel();
         }
 
         $model = $this->argument('model');
 
         // Check if model exists
-        if (!class_exists($model)) {
+        if (! class_exists($model)) {
             throw new Exception('Model ' . $model . ' not found!');
         }
 
         // Label
-        if (!$this->argument('property')) {
+        if (! $this->argument('property')) {
             $this->askForProperty($model);
         }
         $property = $this->argument('property');
@@ -110,7 +110,7 @@ class Visualize extends Command
         // Set format and check if allowed
         $format = strtolower($this->option('format'));
 
-        if (!in_array($format, self::ALLOWED_MIME_TYPES)) {
+        if (! in_array($format, self::ALLOWED_MIME_TYPES)) {
             throw new Exception(sprintf("Format '%s' is not supported", $format));
         }
 
@@ -126,7 +126,7 @@ class Visualize extends Command
         $process->run();
 
         // Check if command successfully finished the process
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
     }
@@ -180,7 +180,7 @@ class Visualize extends Command
             }
 
             // Tree
-            if (!$node->isRoot()) {
+            if (! $node->isRoot()) {
                 $result[] = 'n_' . $node->getParentId() . ' -> ' . 'n_' . $node->getKey() . ' ;';
             }
 
@@ -207,9 +207,12 @@ class Visualize extends Command
             ->map(function ($item) {
                 $path = $item->getRelativePathName();
 
-                return sprintf('\%s%s',
+                return sprintf(
+                    '\%s%s',
                     Container::getInstance()->getNamespace(),
-                    strtr(substr($path, 0, strrpos($path, '.')), '/', '\\'));;
+                    strtr(substr($path, 0, strrpos($path, '.')), '/', '\\')
+                );
+                ;
             })
             ->filter(function ($class) {
                 $valid = false;
