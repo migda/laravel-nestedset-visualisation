@@ -23,12 +23,6 @@ class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn(string $modelName) => 'Migda\\LaravelNestedsetVisualisation\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
-
-        // Run migration for testing
-        $this->loadMigrationsFrom([
-            '--path' => realpath(__DIR__ . '/database/migrations')
-        ]);
-        $this->artisan('migrate');
     }
 
     /**
@@ -56,6 +50,10 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
+
+        // Migrations
+        include_once __DIR__ . '/database/migrations/create_categories_table.php';
+        (new \CreateCategoriesTable())->up();
 
     }
 }
